@@ -1,5 +1,5 @@
-const CACHE='mama365-v2';
-const ASSETS=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
+const CACHE='mama365-v3';
+const ASSETS=['./','./index.html','./manifest.json','./mama-icon.svg'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
   self.skipWaiting();
