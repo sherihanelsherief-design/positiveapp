@@ -8,6 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="رسالة لماما">
 <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <title>رسالة لماما</title>
 <style>
 :root{--cream:#fffaf6;--blush:#f4d8d6;--rose:#b56b75;--ink:#4b3436;--muted:#8b7376;--line:#ead8d4}
@@ -18,7 +21,7 @@ body{margin:0;background:linear-gradient(180deg,#fff8f5 0%,#fdf3ef 100%);color:v
 .tiny{font-size:12px;letter-spacing:.08em;color:var(--rose);font-weight:700}
 h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,10vw,56px);margin:8px 0 6px;font-weight:500}
 .sub{color:var(--muted);font-size:14px;line-height:1.7}
-.heart{font-size:38px;margin-top:8px;color:var(--rose)}
+.heart{font-size:38px;margin-top:8px}
 .card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:28px;padding:32px 22px 28px;box-shadow:0 16px 45px rgba(92,57,61,.08);text-align:center}
 .date-label,.word-label{font-size:11px;letter-spacing:.08em;color:var(--rose);font-weight:800;margin-bottom:6px}
 .date{font-size:16px;color:var(--ink);font-weight:700}
@@ -28,9 +31,12 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,10vw,56px);m
 .divider{width:46px;height:1px;background:var(--line);margin:24px auto}
 .from{color:var(--rose);font-size:14px;font-weight:700}
 .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:12px 16px;font-size:14px;min-height:44px;font-weight:700}
-button.primary{background:var(--rose);border-color:var(--rose);color:#fff}
-.note{text-align:center;color:var(--muted);font-size:12px;margin-top:12px;min-height:18px}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;min-height:44px;padding:10px 15px;font-weight:700;font-size:14px}
+button.primary{background:var(--rose);color:#fff;border-color:var(--rose)}
+.today-note{text-align:center;color:var(--muted);font-size:12px;margin-top:10px;min-height:18px}
+.jump{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);text-align:center}
+.jump label{display:block;font-size:13px;font-weight:700;margin-bottom:10px}
+.jump input[type=range]{width:100%;accent-color:var(--rose)}
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;line-height:1.7}
 @media(max-width:480px){.app{padding:20px 12px 34px}.card{padding:28px 18px 24px;border-radius:24px}.controls button{flex:1 1 45%}.controls .primary{flex-basis:100%}}
 </style>
@@ -38,60 +44,50 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;line-
 <body>
 <main class="app">
 <section class="top">
-  <div class="tiny">365 يوم حب لماما</div>
-  <h1>صباح الخير يا ماما</h1>
-  <div class="heart">♥</div>
-  <p class="sub">كل يوم له تاريخ جديد وكلمة حلوة جديدة مخصوص ليكِ.</p>
+<div class="tiny">365 يوم حب لماما</div>
+<h1>صباح الخير يا ماما</h1>
+<div class="heart">♥</div>
+<p class="sub">من 25 أغسطس 2026، كل يوم له تاريخ وكلمة جديدة مخصوص ليكِ.</p>
 </section>
-
 <section class="card">
-  <div class="date-label">تاريخ اليوم</div>
-  <div class="date" id="date"></div>
-  <div class="counter" id="counter"></div>
-  <div class="divider"></div>
-  <div class="word-label">كلمة النهاردة</div>
-  <p class="message" id="message"></p>
-  <div class="divider"></div>
-  <div class="from">من بنتك، بكل الحب</div>
+<div class="date-label">تاريخ اليوم</div>
+<div class="date" id="date"></div>
+<div class="counter" id="counter"></div>
+<div class="divider"></div>
+<div class="word-label">كلمة النهاردة</div>
+<p class="message" id="message"></p>
+<div class="divider"></div>
+<div class="from">من بنتك، بكل الحب</div>
 </section>
-
 <section class="controls">
-  <button id="prev" type="button">اليوم اللي قبله</button>
-  <button id="today" class="primary" type="button">اليوم ♥</button>
-  <button id="next" type="button">اليوم اللي بعده</button>
+<button id="prev" type="button">اليوم اللي قبله</button>
+<button id="today" class="primary" type="button">اليوم ♥</button>
+<button id="next" type="button">اليوم اللي بعده</button>
 </section>
-<div class="note" id="note"></div>
-<footer>من 25 أغسطس 2026 إلى 24 أغسطس 2027. كل يوم جديد = رسالة حب جديدة.</footer>
+<div class="today-note" id="todayNote"></div>
+<div class="jump">
+<label for="daySlider">تصفحي أي يوم من الـ 365 يوم</label>
+<input id="daySlider" type="range" min="1" max="365" value="1">
+</div>
+<footer>كل يوم جديد = تاريخ جديد + كلمة حب جديدة.</footer>
 </main>
-
 <script>
 const START=Date.UTC(2026,7,25);
-const DAY=86400000;
-const OPENINGS=[
-"يا ماما، وجودك في حياتي من أجمل النعم.","يا حبيبتي، صوتك دايمًا بيطمن قلبي.","يا أمي، أنا ممتنة إن ربنا اختارك تكوني أمي.","يا ماما، قلبك الحنين علّمني يعني إيه حب.","يا أغلى الناس، وجودك بيخلّي أي يوم أهدى.","يا ماما، مهما كبرت هفضل محتاجة حضنك وكلامك.","يا حبيبتي، أنا شايفة كل تعبك وكل حبك.","يا ماما، إنتِ البيت حتى لو المكان اتغير.","يا أمي، في حاجات حلوة كتير فيا أصلها منك.","يا ماما، ضحكتك من الحاجات اللي بتفرّحني بجد.","يا حبيبتي، ربنا رزقني فيكِ سند وحنية.","يا ماما، أنا فخورة إني بنتك.","يا أمي، وجودك لوحده أمان.","يا ماما، إنتِ حد يستاهل كل خير في الدنيا.","يا حبيبتي، أنا بحب تفاصيلك الصغيرة قبل الكبيرة.","يا ماما، كل سنة بتعدّي بتخلّيني أقدّرك أكتر.","يا أمي، محبتك ساكنة جوايا مهما حصل.","يا ماما، أنا محظوظة إن كلمة أمي معناها إنتِ.","يا حبيبتي، إنتِ نعمة بدعي إنها تفضل معايا العمر كله."
-];
-const ENDINGS=[
-"أتمنى يومك النهاردة يكون خفيف على قلبك ومليان راحة.","ربنا يطمن قلبك ويبعد عنك أي حاجة تقلقك.","خدي النهاردة على مهلك، إنتِ تستاهلي الراحة.","أتمنى تسمعي خبر حلو يفرّحك من قلبك.","ربنا يديك صحة وقوة وراحة بال.","افتكري إنك محبوبة أكتر بكتير مما تتخيلي.","أتمنى تضحكي النهاردة من قلبك ولو مرة واحدة.","ربنا يجبر بخاطرك جبر جميل يليق بقلبك.","اعملي حاجة صغيرة تفرّحك النهاردة، عشان نفسك.","أتمنى النهاردة يعاملك بلطف زي ما إنتِ بتعاملي الناس.","ربنا يرزقك أيام أهدى وأحلى من اللي فات.","لو اليوم كان تقيل، افتكري إن بكرة فرصة جديدة.","أتمنى تحسي بالفخر بكل اللي عديتي بيه ووصلتي له.","ربنا يحقق لك أمنية قديمة نفسك فيها.","خدي نفس عميق وافتكري إن راحتك مهمة.","أتمنى قلبك يكون مطمن إن كل شيء هيكون بخير بإذن الله.","ربنا يحفظك ليا ويبارك لي في عمرك وصحتك.","افتكري إنك مش محتاجة تعملي أي حاجة عشان تستحقي الحب.","أتمنى يومك يكون فيه لحظة هدوء حلوة مخصوص ليكِ.","ربنا يرد لك كل حنية قدمتيها للناس أضعاف."
-];
-const MESSAGES=[];for(const a of OPENINGS){for(const b of ENDINGS){MESSAGES.push(a+' '+b)}}MESSAGES.length=365;
-function todayIndex(){const d=new Date();const u=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());return Math.floor((u-START)/DAY)}
-function clampIndex(i){return Math.max(0,Math.min(364,i))}
-function dateForIndex(i){return new Date(START+i*DAY)}
+const ONE_DAY=86400000;
+const openings=['يا ماما، وجودك في حياتي من أجمل النعم.','يا حبيبتي، صوتك دايمًا بيطمن قلبي.','يا أمي، أنا ممتنة إن ربنا اختارك تكوني أمي.','يا ماما، قلبك الحنين علّمني يعني إيه حب.','يا أغلى الناس، وجودك بيخلّي أي يوم أهدى.','يا ماما، مهما كبرت هفضل محتاجة حضنك وكلامك.','يا حبيبتي، أنا شايفة كل تعبك وكل حبك.','يا ماما، إنتِ البيت حتى لو المكان اتغير.','يا أمي، في حاجات حلوة كتير فيا أصلها منك.','يا ماما، ضحكتك من الحاجات اللي بتفرّحني بجد.','يا حبيبتي، ربنا رزقني فيكِ سند وحنية.','يا ماما، أنا فخورة إني بنتك.','يا أمي، وجودك لوحده أمان.','يا ماما، إنتِ حد يستاهل كل خير في الدنيا.','يا حبيبتي، أنا بحب تفاصيلك الصغيرة قبل الكبيرة.','يا ماما، كل سنة بتعدّي بتخلّيني أقدّرك أكتر.','يا أمي، محبتك ساكنة جوايا مهما حصل.','يا ماما، أنا محظوظة إن كلمة أمي معناها إنتِ.','يا حبيبتي، إنتِ نعمة بدعي إنها تفضل معايا العمر كله.'];
+const endings=['أتمنى يومك النهاردة يكون خفيف على قلبك ومليان راحة.','ربنا يطمن قلبك ويبعد عنك أي حاجة تقلقك.','خدي النهاردة على مهلك، إنتِ تستاهلي الراحة.','أتمنى تسمعي خبر حلو يفرّحك من قلبك.','ربنا يديك صحة وقوة وراحة بال.','افتكري إنك محبوبة أكتر بكتير مما تتخيلي.','أتمنى تضحكي النهاردة من قلبك ولو مرة واحدة.','ربنا يجبر بخاطرك جبر جميل يليق بقلبك.','اعملي حاجة صغيرة تفرّحك النهاردة، عشان نفسك.','أتمنى النهاردة يعاملك بلطف زي ما إنتِ بتعاملي الناس.','ربنا يرزقك أيام أهدى وأحلى من اللي فات.','لو اليوم كان تقيل، افتكري إن بكرة فرصة جديدة.','أتمنى تحسي بالفخر بكل اللي عديتي بيه ووصلتي له.','ربنا يحقق لك أمنية قديمة نفسك فيها.','خدي نفس عميق وافتكري إن راحتك مهمة.','أتمنى قلبك يكون مطمن إن كل شيء هيكون بخير بإذن الله.','ربنا يحفظك ليا ويبارك لي في عمرك وصحتك.','افتكري إنك مش محتاجة تعملي أي حاجة عشان تستحقي الحب.','أتمنى يومك يكون فيه لحظة هدوء حلوة مخصوص ليكِ.','ربنا يرد لك كل حنية قدمتيها للناس أضعاف.'];
+const MESSAGES=[];for(const o of openings){for(const e of endings){MESSAGES.push(o+' '+e)}}MESSAGES.length=365;
+function todayIndex(){const n=new Date();const t=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate());return Math.floor((t-START)/ONE_DAY)}
+function clamp(i){return Math.max(0,Math.min(364,i))}
+function dateFor(i){return new Date(START+i*ONE_DAY)}
 function fmt(d){return new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(d)}
-let current=clampIndex(todayIndex());
-function render(){
-  document.getElementById('date').textContent=fmt(dateForIndex(current));
-  document.getElementById('counter').textContent='اليوم '+(current+1)+' من 365';
-  document.getElementById('message').textContent=MESSAGES[current];
-  document.getElementById('prev').disabled=current===0;
-  document.getElementById('next').disabled=current===364;
-  const ti=clampIndex(todayIndex());
-  document.getElementById('note').textContent=current===ti?'أنتِ بتشوفي رسالة النهاردة ♥':'اضغطي «اليوم» للرجوع لرسالة تاريخ النهاردة.';
-}
-document.getElementById('prev').addEventListener('click',()=>{current=clampIndex(current-1);render()});
-document.getElementById('next').addEventListener('click',()=>{current=clampIndex(current+1);render()});
-document.getElementById('today').addEventListener('click',()=>{current=clampIndex(todayIndex());render()});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
+let current=clamp(todayIndex());
+function render(){document.getElementById('date').textContent=fmt(dateFor(current));document.getElementById('counter').textContent=`اليوم ${current+1} من 365`;document.getElementById('message').textContent=MESSAGES[current];document.getElementById('daySlider').value=current+1;const ti=clamp(todayIndex());document.getElementById('todayNote').textContent=current===ti?'أنتِ بتشوفي رسالة النهاردة ♥':'اضغطي «اليوم» للرجوع لرسالة تاريخ النهاردة.';document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===364}
+document.getElementById('prev').addEventListener('click',()=>{current=clamp(current-1);render()});
+document.getElementById('next').addEventListener('click',()=>{current=clamp(current+1);render()});
+document.getElementById('today').addEventListener('click',()=>{current=clamp(todayIndex());render()});
+document.getElementById('daySlider').addEventListener('input',e=>{current=clamp(Number(e.target.value)-1);render()});
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
 render();
 </script>
 </body>
