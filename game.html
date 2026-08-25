@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7ddea">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Catch the Sakura</title>
+<style>
+:root{--pink:#ea77b7;--pink2:#f2a8cf;--soft:#fbe8f3;--plum:#35142f;--text:#514653;--line:#f4cfe2}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.95),transparent 34%),linear-gradient(180deg,#fff9fc,#fff0f7);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text)}
+.app{max-width:760px;margin:0 auto;padding:18px 14px 30px;position:relative;overflow:hidden;min-height:100vh}
+.top{text-align:center;position:relative;z-index:3}.back{position:absolute;left:0;top:2px;text-decoration:none;color:var(--pink);font-weight:800;font-size:15px;padding:12px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.82)}
+h1{font-family:Georgia,"Times New Roman",serif;color:var(--plum);font-size:clamp(34px,7vw,54px);font-weight:500;margin:8px 0 4px}.sub{color:var(--pink);font-size:12px;letter-spacing:.18em;font-weight:800}.intro{margin:10px auto 16px;color:#766471;font-size:14px;line-height:1.5;max-width:520px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;position:relative;z-index:3;margin-bottom:10px}.stat{background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}.stat b{display:block;color:var(--plum);font-size:20px}.stat span{font-size:11px;color:#8b7180;text-transform:uppercase;letter-spacing:.08em}
+.game{position:relative;height:520px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.73),rgba(255,246,251,.80));box-shadow:0 16px 40px rgba(179,90,135,.12);z-index:2;touch-action:manipulation}
+.branch{position:absolute;width:260px;height:180px;opacity:.55;pointer-events:none}.branch.left{left:-60px;top:-15px}.branch.right{right:-70px;bottom:-15px;transform:rotate(180deg)}.twig{position:absolute;left:0;top:84px;width:240px;height:5px;border-radius:999px;background:#b7878d;transform:rotate(-20deg)}.bloom{position:absolute;font-size:42px;filter:saturate(.9);text-shadow:0 4px 9px rgba(234,119,183,.18)}.b1{left:48px;top:36px}.b2{left:100px;top:68px;font-size:34px}.b3{left:148px;top:31px;font-size:30px}.b4{left:178px;top:78px;font-size:37px}
+.petal{position:absolute;border:0;background:transparent;font-size:42px;line-height:1;cursor:pointer;padding:4px;user-select:none;filter:drop-shadow(0 5px 7px rgba(214,101,159,.18));animation:fall linear forwards;z-index:4}.petal:focus-visible{outline:3px solid var(--pink);border-radius:50%}@keyframes fall{0%{transform:translateY(-70px) rotate(0deg)}100%{transform:translateY(620px) rotate(340deg)}}
+.start-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;z-index:6;background:rgba(255,250,253,.58);backdrop-filter:blur(3px)}.start-card{max-width:410px;text-align:center;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 15px 35px rgba(173,81,132,.12)}.start-card h2{font-family:Georgia,serif;color:var(--plum);font-size:28px;margin:0 0 8px}.start-card p{font-size:14px;line-height:1.55;margin:0 0 18px}.primary{border:0;border-radius:999px;background:linear-gradient(135deg,#ec85bd,#e66db1);color:white;font-weight:800;font-size:16px;min-height:50px;padding:0 26px;box-shadow:0 10px 22px rgba(221,98,168,.22)}
+.message{position:relative;z-index:3;margin-top:12px;min-height:66px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.78);display:flex;align-items:center;justify-content:center;text-align:center;padding:13px 18px;font-family:Georgia,serif;color:var(--plum);font-size:18px;line-height:1.35}.pop{animation:pop .25s ease-out}@keyframes pop{50%{transform:scale(1.025)}}
+.footer{text-align:center;color:var(--pink);font-family:Georgia,serif;margin-top:14px;font-size:15px}@media(max-width:520px){.app{padding:14px 10px 24px}.back{font-size:0;width:44px;height:44px}.back:after{content:'‹';font-size:28px}.game{height:500px}.petal{font-size:38px}.stat b{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.petal{animation-duration:7s!important}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><a class="back" href="index.html">‹ Back</a><div class="sub">POSITIVE ENERGY MINI GAME</div><h1>Catch the Sakura</h1><p class="intro">Catch as many falling blossoms as you can. Every flower you tap gives you a tiny positive reminder.</p></header>
+<section class="stats"><div class="stat"><b id="score">0</b><span>Score</span></div><div class="stat"><b id="time">45</b><span>Seconds</span></div><div class="stat"><b id="best">0</b><span>Best</span></div></section>
+<section class="game" id="game" aria-label="Catch falling sakura petals game">
+<div class="branch left"><div class="twig"></div><span class="bloom b1">🌸</span><span class="bloom b2">🌸</span><span class="bloom b3">🌸</span><span class="bloom b4">🌸</span></div>
+<div class="branch right"><div class="twig"></div><span class="bloom b1">🌸</span><span class="bloom b2">🌸</span><span class="bloom b3">🌸</span><span class="bloom b4">🌸</span></div>
+<div class="start-panel" id="panel"><div class="start-card"><h2 id="panelTitle">Ready?</h2><p id="panelText">You have 45 seconds. Tap each sakura blossom before it reaches the bottom.</p><button class="primary" id="start" type="button">Start Game 🌸</button></div></div>
+</section>
+<div class="message" id="message" aria-live="polite">Tap a blossom and let the good energy find you.</div>
+<div class="footer">♡ Catch joy. Keep the energy. ♡</div>
+</main>
+<script>
+(()=>{const game=document.getElementById('game'),scoreEl=document.getElementById('score'),timeEl=document.getElementById('time'),bestEl=document.getElementById('best'),panel=document.getElementById('panel'),startBtn=document.getElementById('start'),title=document.getElementById('panelTitle'),panelText=document.getElementById('panelText'),message=document.getElementById('message');const affirmations=['You are doing better than you think.','Your energy is precious.','Small wins still count.','You are allowed to feel proud of yourself.','Something good can happen today.','Keep choosing yourself.','Your peace matters.','You are capable of creating a beautiful life.','Your softness is a strength.','One brave step changes momentum.','You are closer than you think.','Make room for joy.','You deserve good things too.','Your future can be lighter.','Trust yourself a little more today.','Keep going, you are building something.'];let score=0,left=45,running=false,spawnTimer=null,clockTimer=null;let best=Number(localStorage.getItem('sakuraBest')||0);bestEl.textContent=best;
+function clearPetals(){game.querySelectorAll('.petal').forEach(p=>p.remove())}function note(text){message.textContent=text;message.classList.remove('pop');void message.offsetWidth;message.classList.add('pop')}
+function spawn(){if(!running)return;const p=document.createElement('button');p.type='button';p.className='petal';p.textContent=Math.random()>.18?'🌸':'💮';p.setAttribute('aria-label','Catch blossom');const max=Math.max(20,game.clientWidth-62);p.style.left=(12+Math.random()*(max-12))+'px';const duration=3.1+Math.random()*2.2;p.style.animationDuration=duration+'s';p.addEventListener('click',()=>{if(!running)return;score++;scoreEl.textContent=score;note(affirmations[Math.floor(Math.random()*affirmations.length)]);p.remove()});p.addEventListener('animationend',()=>p.remove());game.appendChild(p);spawnTimer=setTimeout(spawn,420+Math.random()*430)}
+function finish(){running=false;clearTimeout(spawnTimer);clearInterval(clockTimer);clearPetals();if(score>best){best=score;localStorage.setItem('sakuraBest',String(best));bestEl.textContent=best;title.textContent='New best score!';panelText.textContent=`You caught ${score} blossoms. That was beautiful.`}else{title.textContent='Lovely run!';panelText.textContent=`You caught ${score} blossoms. Your best is ${best}.`}startBtn.textContent='Play Again 🌸';panel.style.display='flex';note(score>=20?'You brought serious positive energy. ✨':'Every little bit of joy counts. 🌸')}
+function start(){score=0;left=45;running=true;scoreEl.textContent='0';timeEl.textContent='45';panel.style.display='none';clearPetals();note('Go! Catch the sakura 🌸');spawn();clockTimer=setInterval(()=>{left--;timeEl.textContent=left;if(left<=0)finish()},1000)}startBtn.addEventListener('click',start)})();
+</script>
+</body>
+</html>
