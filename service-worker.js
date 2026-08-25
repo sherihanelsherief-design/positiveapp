@@ -1,5 +1,5 @@
-const CACHE='positive-energy-v2';
-const ASSETS=['./','./index.html','./game.html','./manifest.json'];
+const CACHE='positive-energy-v3';
+const ASSETS=['./','./index.html','./manifest.json','./game.html','./icon-192.svg','./icon-512.svg'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
   self.skipWaiting();
