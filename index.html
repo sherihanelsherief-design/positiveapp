@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7ddea">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Positive Energy">
+<link rel="manifest" href="manifest.json">
+<title>Positive Energy</title>
+<style>
+:root{
+  --bg:#fff8fb;
+  --pink:#ea77b7;
+  --pink2:#f2a8cf;
+  --pinkSoft:#fbe8f3;
+  --pinkPale:#fff1f7;
+  --plum:#35142f;
+  --text:#4a3a49;
+  --muted:#796777;
+  --line:#f4cfe2;
+  --white:#fffdfd;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,.96) 0, rgba(255,255,255,.78) 25%, transparent 52%),
+    linear-gradient(180deg,#fff9fc 0%,#fff3f8 100%);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+.app{max-width:860px;margin:0 auto;padding:20px 18px 36px;position:relative;overflow:hidden;min-height:100vh}
+.spark{position:absolute;color:#e887bb;opacity:.72;font-size:26px;pointer-events:none}
+.s1{left:6%;top:120px}.s2{right:8%;top:150px}.s3{left:3%;top:360px}.s4{right:4%;top:390px}
+.header{text-align:center;position:relative;padding:0 64px 16px}
+.menu,.fav{
+  position:absolute;top:0;width:48px;height:48px;border:0;background:transparent;color:var(--pink);
+  font-size:30px;display:flex;align-items:center;justify-content:center
+}
+.menu{left:0}.fav{right:0;border-radius:50%;background:rgba(255,255,255,.75);box-shadow:0 8px 25px rgba(181,90,140,.1)}
+h1{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--plum);font-size:clamp(38px,7vw,64px);font-weight:500;line-height:1}
+.tagline{margin:12px 0 0;color:var(--pink);font-size:13px;font-weight:800;letter-spacing:.24em}
+.ornament{margin:12px auto 0;color:var(--pink);font-size:18px}
+.quote-card{
+  background:rgba(255,255,255,.84);border:1px solid var(--line);border-radius:30px;
+  box-shadow:0 14px 40px rgba(179,90,135,.12);padding:28px 28px 30px;text-align:center;
+}
+.quote-icon{
+  width:68px;height:68px;border-radius:50%;background:var(--pinkSoft);display:flex;align-items:center;justify-content:center;
+  color:var(--pink);font-family:Georgia,serif;font-size:44px;margin:0 auto 14px
+}
+.quote-heading{font-family:Georgia,serif;font-size:27px;color:var(--pink);font-weight:700}
+.date-row{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:22px}
+.calendar-icon{font-size:27px;color:var(--pink)}
+.date{font-family:Georgia,serif;color:var(--plum);font-size:clamp(22px,4vw,34px);font-weight:700}
+.heart-line{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px auto;color:var(--pink)}
+.heart-line:before,.heart-line:after{content:"";width:140px;max-width:28%;height:1px;background:var(--line)}
+.main-quote{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(26px,5vw,42px);line-height:1.45;color:#514653;max-width:680px;margin:0 auto
+}
+.main-quote:before{content:"“";color:var(--pink);font-size:40px;margin-right:8px}
+.main-quote:after{content:"”";color:var(--pink);font-size:40px;margin-left:8px}
+.support{
+  margin:22px auto 0;max-width:520px;font-size:16px;line-height:1.55;color:#6a5c68
+}
+.tiny-heart{color:var(--pink);font-size:27px;margin-top:6px}
+.controls{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:18px;margin-top:24px}
+.navbtn{
+  min-height:62px;border-radius:18px;border:2px solid var(--pink);background:rgba(255,255,255,.72);
+  color:var(--plum);font-size:16px;font-weight:800;padding:0 18px
+}
+.navbtn.today{
+  color:white;border-color:transparent;
+  background:linear-gradient(135deg,#ec85bd,#e66db1);
+  box-shadow:0 10px 24px rgba(221,98,168,.22)
+}
+.song-card{
+  margin-top:26px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.76);
+  padding:22px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center
+}
+.song-icon{
+  width:86px;height:86px;border-radius:50%;background:var(--pinkSoft);display:flex;align-items:center;justify-content:center;
+  color:var(--pink);font-size:38px
+}
+.song-title{font-family:Georgia,serif;color:var(--pink);font-size:25px;font-weight:700}
+.song-name{font-family:Georgia,serif;color:var(--plum);font-size:21px;font-weight:700;margin-top:6px}
+.song-desc{font-size:15px;line-height:1.5;margin-top:7px;color:#62545f}
+.yt{
+  min-height:54px;padding:0 22px;border:0;border-radius:16px;color:white;text-decoration:none;font-weight:800;
+  background:linear-gradient(135deg,#ec85bd,#e66db1);display:flex;align-items:center;justify-content:center;white-space:nowrap
+}
+.motivation{
+  margin-top:24px;border:1px solid var(--line);background:rgba(251,232,243,.55);border-radius:22px;
+  padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px
+}
+.motivation .star{font-size:33px;color:var(--pink)}
+.motivation .text{flex:1;font-size:16px;line-height:1.5}
+.motivation strong{display:block;color:var(--plum);font-size:19px}
+.sunrise{font-size:42px;color:var(--pink)}
+.footer{text-align:center;color:var(--pink);font-size:16px;margin-top:20px;font-family:Georgia,serif}
+
+.sakura-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.sakura-svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.header,.quote-card,.controls,.song-card,.motivation,.footer{
+  position:relative;
+  z-index:1;
+}
+.quote-card,.song-card,.motivation{
+  backdrop-filter: blur(2px);
+}
+
+@media(max-width:650px){
+  .app{padding:14px 12px 28px}
+  .header{padding:0 48px 14px}.menu,.fav{width:42px;height:42px;font-size:26px}
+  .quote-card{padding:22px 16px 24px}
+  .controls{gap:8px}.navbtn{font-size:14px;padding:0 8px;min-height:54px}
+  .song-card{grid-template-columns:1fr;text-align:center}.song-icon{margin:0 auto}.yt{width:100%}
+  .motivation{padding:16px}.sunrise{font-size:34px}
+}
+</style>
+</head>
+<body>
+<main class="app">
+
+<div class="sakura-bg" aria-hidden="true">
+  <svg class="sakura-svg" viewBox="0 0 1000 1600" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="branchG" x1="0" x2="1">
+        <stop offset="0" stop-color="#9a6f72"/>
+        <stop offset="1" stop-color="#b98a90"/>
+      </linearGradient>
+      <radialGradient id="petalG">
+        <stop offset="0" stop-color="#fff8fc"/>
+        <stop offset=".55" stop-color="#f9c7df"/>
+        <stop offset="1" stop-color="#ef9ec8"/>
+      </radialGradient>
+      <filter id="soft">
+        <feGaussianBlur stdDeviation="1.4"/>
+      </filter>
+    </defs>
+
+    <path d="M-30 290 C90 235, 120 175, 215 110 C255 82, 300 58, 345 40" fill="none" stroke="url(#branchG)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M75 235 C110 180, 135 135, 165 90" fill="none" stroke="url(#branchG)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M130 195 C180 180, 220 160, 252 130" fill="none" stroke="url(#branchG)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M215 110 C235 78, 258 55, 288 35" fill="none" stroke="url(#branchG)" stroke-width="4" stroke-linecap="round"/>
+
+    <path d="M1030 720 C915 690, 880 640, 825 590 C780 548, 745 520, 700 500" fill="none" stroke="url(#branchG)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M930 675 C900 635, 875 610, 850 570" fill="none" stroke="url(#branchG)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M865 625 C820 615, 790 598, 760 575" fill="none" stroke="url(#branchG)" stroke-width="4" stroke-linecap="round"/>
+
+    <path d="M-30 1110 C80 1060, 120 1015, 180 965 C220 930, 260 900, 320 875" fill="none" stroke="url(#branchG)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M100 1025 C120 980, 145 945, 170 915" fill="none" stroke="url(#branchG)" stroke-width="4" stroke-linecap="round"/>
+
+    <g opacity=".96">
+      <g transform="translate(50 235) scale(1.05)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(122 175) scale(.82)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(185 135) scale(.7)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(245 95) scale(.88)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(930 660) scale(1.0)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(865 615) scale(.82)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(795 570) scale(.68)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(95 1035) scale(.82)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+      <g transform="translate(165 975) scale(.66)"><circle r="8" fill="#e783b4"/><ellipse rx="24" ry="13" transform="rotate(0) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(72) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(144) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(216) translate(22 0)" fill="url(#petalG)"/><ellipse rx="24" ry="13" transform="rotate(288) translate(22 0)" fill="url(#petalG)"/></g>
+    </g>
+
+    <g opacity=".62" fill="url(#petalG)">
+      <ellipse cx="90" cy="470" rx="18" ry="9" transform="rotate(-28 90 470)"/>
+      <ellipse cx="210" cy="600" rx="15" ry="8" transform="rotate(36 210 600)"/>
+      <ellipse cx="870" cy="190" rx="17" ry="9" transform="rotate(-35 870 190)"/>
+      <ellipse cx="950" cy="340" rx="14" ry="7" transform="rotate(30 950 340)"/>
+      <ellipse cx="900" cy="940" rx="17" ry="9" transform="rotate(55 900 940)"/>
+      <ellipse cx="80" cy="1380" rx="16" ry="8" transform="rotate(-20 80 1380)"/>
+      <ellipse cx="720" cy="1280" rx="15" ry="8" transform="rotate(42 720 1280)"/>
+      <ellipse cx="530" cy="250" rx="13" ry="7" transform="rotate(-12 530 250)"/>
+    </g>
+  </svg>
+</div>
+
+<header class="header">
+  <button class="menu" type="button" aria-label="Menu">☰</button>
+  <button class="fav" type="button" aria-label="Favorite">♡</button>
+  <h1>Positive Energy</h1>
+  <div class="tagline">DAILY POSITIVE REMINDER</div>
+  <div class="ornament">──── ♡ ────</div>
+</header>
+
+<section class="quote-card">
+  <div class="quote-icon">“</div>
+  <div class="quote-heading">Today's Quote</div>
+  <div class="date-row">
+    <span class="calendar-icon">▣</span>
+    <div class="date" id="date"></div>
+  </div>
+  <div class="heart-line">♥</div>
+  <p class="main-quote" id="quote"></p>
+  <div class="heart-line">✦</div>
+  <p class="support" id="support">Believe in yourself today and every day.<br>You are capable of amazing things.</p>
+  <div class="tiny-heart">♡</div>
+</section>
+
+<section class="controls">
+  <button class="navbtn" id="prev" type="button">‹ &nbsp; Day Before</button>
+  <button class="navbtn today" id="today" type="button">▣ &nbsp; Today</button>
+  <button class="navbtn" id="next" type="button">Day After &nbsp; ›</button>
+</section>
+
+<section class="song-card">
+  <div class="song-icon">♫</div>
+  <div>
+    <div class="song-title">Song of the Day</div>
+    <div class="song-name" id="songName"></div>
+    <div class="song-desc">A feel-good reminder to stay positive and enjoy life to the fullest.</div>
+  </div>
+  <a class="yt" id="songLink" target="_blank" rel="noopener noreferrer">▶ &nbsp; Play on YouTube</a>
+</section>
+
+<section class="motivation">
+  <div class="star">✦</div>
+  <div class="text">New day, new opportunity, new positive energy.<strong>Make today count!</strong></div>
+  <div class="sunrise">◒</div>
+</section>
+
+<div class="footer">♡ &nbsp; You've got this! &nbsp; ♡</div>
+</main>
+
+<script>
+const START = new Date(2026,7,25);
+const QUOTES = ["You are braver than you believe, stronger than you seem, and smarter than you think.", "Your peace is more important than proving a point.", "Small steps create big changes when you keep going.", "You are allowed to grow at your own pace.", "Today is full of new possibilities.", "Your energy is precious. Spend it where it matters.", "You are becoming the person you once needed.", "Choose thoughts that make your life feel lighter.", "Good things are allowed to happen to you.", "You do not need to have it all figured out today.", "Your future is built by the small choices you make now.", "Protect your peace and keep moving forward.", "Something beautiful can begin today.", "You are capable of more than your fear tells you.", "Let today be softer, calmer, and kinder.", "You are not behind. You are on your own path.", "Progress is still progress, even when it feels slow.", "You deserve a life that feels good on the inside too.", "Trust yourself. You have handled hard things before.", "Your life can change in wonderful ways.", "Be proud of how far you have come.", "One positive thought can shift your whole day.", "You are allowed to choose yourself.", "Your presence makes a difference.", "Let go of what drains you and move toward what fills you.", "Today is another chance to believe in yourself.", "You are stronger than the version of you that first faced this.", "Your dreams deserve your effort.", "Peace is productive too.", "Make room for joy without needing a reason.", "You do not need permission to build a beautiful life.", "Your best days are not all behind you.", "Take up space in your own life.", "You can start again as many times as you need.", "Give yourself the same kindness you give everyone else.", "You are closer than you think.", "Your worth is not measured by your productivity.", "Let today surprise you in a good way.", "Your mindset can change the direction of your day.", "Choose what supports the person you are becoming.", "You are worthy of calm, love, and good things.", "Do one thing today that your future self will thank you for.", "You have permission to outgrow old versions of yourself.", "Your courage grows every time you use it.", "Slow down enough to notice what is already good.", "You can create a life that feels like yours.", "Your confidence grows through action.", "Keep showing up for yourself.", "There is still time for something wonderful to happen.", "You deserve to feel proud of yourself today.", "Your energy introduces you before you speak.", "Choose peace over unnecessary pressure.", "You can be both a work in progress and deeply worthy.", "Today does not have to be perfect to be meaningful.", "Your next chapter can be better than the last.", "Keep the faith in the version of you you are building.", "You are allowed to want more for your life.", "Give your attention to what helps you grow.", "Be where your feet are.", "You can handle today one moment at a time.", "Do not underestimate the power of consistency.", "Your life is allowed to feel lighter.", "Start with what you can do today.", "You are learning, growing, and becoming.", "Choose hope even when certainty is unavailable.", "You have survived every difficult day so far.", "Your peace deserves boundaries.", "Make today count in a way that feels true to you.", "You are allowed to receive good things without guilt.", "Your confidence does not need to be loud.", "Rest can be part of progress.", "Believe that life can get better.", "Be gentle with yourself while you grow.", "Today is another page, not the whole story.", "Your effort matters even before the results show.", "You are capable of creating new patterns.", "Let your actions match the life you want.", "You deserve relationships that feel safe and reciprocal.", "Choose a thought that gives you strength.", "You do not need to chase what is meant to meet you halfway.", "Your inner peace is a valid priority.", "Your life is not late.", "Let yourself enjoy the little things.", "You are building evidence that you can trust yourself.", "Your growth may be quiet, but it is real.", "Take the next right step, not every step.", "You can be proud and still want more.", "Today is worthy of your full presence.", "Your dreams need consistency more than perfection.", "Let yourself believe something good is coming.", "You can change your mind and choose differently.", "Your value does not decrease when someone fails to see it.", "Keep your heart soft and your standards strong.", "Your future self is being shaped by today.", "Do not abandon yourself to please others.", "Your boundaries protect your energy.", "You are allowed to feel excited about your life.", "Choose what makes you feel more like yourself.", "Your world expands when you believe new things are possible.", "You can build a calm life and still be ambitious.", "Not every day needs to be productive to be valuable.", "Trust that small improvements compound.", "You deserve to wake up excited about your life.", "Your resilience is proof of your strength.", "Start where you are and use what you have.", "You are allowed to stop carrying what is not yours.", "One brave decision can change everything.", "Your happiness is worth investing in.", "Let go of the need to rush.", "You can be ambitious without being cruel to yourself.", "Your peace is a form of success.", "Show yourself that you can follow through.", "You do not need everyone to understand your path.", "Today is a chance to become more aligned.", "Your life can hold both peace and big dreams.", "Keep choosing yourself in small ways.", "Your confidence is built every time you keep a promise to yourself.", "Something good can find you today.", "You are allowed to expect better.", "Create more space for what gives you energy.", "You have more options than fear makes you think.", "Your softness and your strength can exist together.", "Let today be enough.", "Your direction matters more than your speed.", "Choose actions that make tomorrow easier.", "You are worthy before you achieve anything.", "You can rebuild from here.", "Your life does not need to look like anyone else's.", "Keep your focus on the life you are creating.", "You are allowed to be proud of your progress.", "Your courage is stronger than your hesitation.", "Choose one thing and move it forward.", "Good energy begins with what you allow into your mind.", "You can make a new choice today.", "Your peace matters more than being understood by everyone.", "Your effort is creating momentum.", "Let yourself receive compliments, help, and love.", "You are allowed to have standards.", "Keep making your life a place you enjoy living in.", "You can trust the lessons you have learned.", "Do not shrink to make others comfortable.", "Your next step does not need to be huge.", "Take care of the energy you bring into your own life.", "You are worthy of reciprocal love.", "Today is another opportunity to move closer to yourself.", "Your growth is worth the discomfort.", "Choose calm over chaos when you can.", "You are allowed to enjoy your own company.", "Keep building the version of life that feels right to you.", "You do not need to earn rest.", "Your future can look very different from your past.", "Believe in your ability to figure things out.", "You are allowed to protect your time.", "Your life deserves your attention.", "Take yourself seriously enough to follow your goals.", "Your peace is not boring. It is powerful.", "You can move slowly without standing still.", "Choose what nourishes you.", "You are not asking for too much when you ask for respect.", "Let your standards reflect your self-respect.", "Your energy is better spent on what grows with you.", "Today can be simple and still be good.", "You are capable of making difficult decisions.", "Your confidence can grow quietly.", "You deserve clarity, not confusion.", "Choose what feels aligned, not just familiar.", "You can leave behind what no longer fits.", "Your happiness does not need to be postponed.", "One day of courage can create a new direction.", "You are allowed to change your environment.", "Your nervous system deserves peace too.", "Keep investing in the life you want.", "You can be hopeful without knowing exactly how.", "Your progress counts even when nobody sees it.", "Be patient with the results, not passive with the effort.", "You are allowed to want stability.", "Your life is not a race.", "Choose habits that make you proud.", "You are capable of holding yourself through uncertainty.", "Your energy can be soft and powerful at the same time.", "Let the old version of you rest.", "You can create new evidence for a new belief.", "Today is an opportunity, not a test.", "Your peace is worth choosing again and again.", "You deserve consistency.", "Make decisions your future self can live with.", "You are allowed to feel good before everything is solved.", "Your standards teach people how to treat you.", "Choose your next move from self-respect.", "You have more strength than today's mood.", "Your life can become more beautiful through small changes.", "Do not confuse familiarity with safety.", "You are allowed to walk away from mixed signals.", "Your goals deserve structure.", "You do not need motivation every day. You need a next step.", "Your self-trust is built in ordinary moments.", "Let today be about progress, not pressure.", "You can love people without abandoning yourself.", "Your boundaries do not need an apology.", "Choose the life that gives you room to breathe.", "You are capable of learning what you do not know yet.", "Your growth deserves patience.", "One calm choice can protect your whole day.", "You do not need to prove your strength by staying in hard places.", "Your future is allowed to be easier.", "Keep doing the work that gives you options.", "You deserve to feel safe in your own life.", "Your pace can be sustainable and still be ambitious.", "Today is another chance to act like the person you want to become.", "Trust the version of you that has learned from experience.", "You are allowed to outgrow old dreams.", "Your energy belongs to you first.", "Let yourself be surprised by what works out.", "You can build stability one decision at a time.", "Your life is worthy of careful choices.", "Choose what brings more peace tomorrow.", "You do not need chaos to feel alive.", "Your confidence grows when your actions match your words.", "Let your life become more intentional.", "You are allowed to say no without a long explanation.", "Your future self needs your consistency, not your perfection.", "Today can be a turning point in a quiet way.", "You can stop revisiting what has already taught you enough.", "Your life can hold both softness and discipline.", "Choose what respects your time.", "You are building a stronger relationship with yourself.", "Your peace is worth more than temporary attention.", "You can start small and still create something big.", "Today is yours to shape.", "You are allowed to be selective.", "Your life improves when your decisions become clearer.", "Choose actions that increase your freedom.", "You deserve a life that feels stable, not just exciting.", "Your self-respect will cost you some situations and save you from others.", "Keep moving toward what feels healthy.", "You are capable of becoming financially, emotionally, and spiritually stronger.", "Your attention is one of your most valuable resources.", "Let today be calm enough to hear yourself think.", "You can stop negotiating against your own needs.", "Your growth does not need an audience.", "Choose consistency over intensity.", "You are allowed to build slowly.", "Your best investment is often in your own capacity.", "Today is a good day to simplify.", "You do not need to repeat an old pattern just because it is familiar.", "Your peace is worth protecting before it is disturbed.", "Choose the option that gives you more self-respect.", "You are allowed to want a beautiful life.", "Your goals become real through repeated action.", "Let your habits support your dreams.", "You can hold high standards and a soft heart.", "Your future is not defined by one difficult season.", "Today is enough to begin again.", "You deserve to feel clear about where you stand.", "Choose what makes your life more sustainable.", "You are stronger when you stop fighting yourself.", "Your energy grows when you stop leaking it.", "Let yourself believe in a better outcome.", "You can make a decision and adjust later.", "Your worth is stable even when circumstances change.", "Choose people who bring clarity, not confusion.", "You are allowed to create distance.", "Your life is not meant to be lived in constant urgency.", "One focused hour can change a lot.", "You can recover from setbacks without starting from zero.", "Your peace is a daily practice.", "Choose the next useful action.", "You are allowed to be unavailable sometimes.", "Your future deserves your attention today.", "Let your standards protect your heart.", "You do not need to convince the right people.", "Your self-trust grows when you stop ignoring yourself.", "Choose what moves you toward freedom.", "You are capable of handling the next chapter.", "Your energy can change when your environment changes.", "Today is a chance to build momentum.", "You do not need to rush into certainty.", "Your life can improve faster when you simplify.", "Choose what supports your long-term peace.", "You are allowed to be proud of surviving and still want to thrive.", "Your courage is already working.", "Let yourself be a beginner.", "You can make your life smaller in stress and bigger in meaning.", "Your goals deserve your calendar.", "Choose yourself without becoming closed-hearted.", "You are worthy of peace that lasts.", "Your future can be built with calm decisions.", "Today is one piece of a much bigger story.", "You do not have to respond to everything.", "Your energy improves when your boundaries improve.", "Choose what gives you room to grow.", "You are allowed to be ambitious and rested.", "Your strength is not measured by how much you tolerate.", "Let your progress be enough for today.", "You can create a life that feels safer and freer.", "Your attention should go where your values are.", "Choose what aligns with your future, not your fear.", "You are allowed to slow down before deciding.", "Your consistency can change your identity.", "Today is a good day to make one brave choice.", "You do not need to wait for confidence before acting.", "Your life can be both peaceful and exciting.", "Choose the path that respects your nervous system.", "You are capable of creating new standards.", "Your future self benefits from every boundary you keep.", "Let yourself move forward without needing perfect closure.", "You can release what no longer deserves your energy.", "Your peace is a powerful filter.", "Choose the version of you that follows through.", "You are allowed to prioritize stability.", "Your habits are votes for your future.", "Today is a chance to practice self-trust.", "You do not need to carry yesterday into today.", "Your energy can become lighter with one honest decision.", "Choose what is sustainable, not just impressive.", "You are capable of changing your life in ordinary ways.", "Your future can be built quietly.", "Let yourself enjoy progress before the finish line.", "You can become more selective without becoming cold.", "Your peace is not negotiable.", "Choose what brings you back to yourself.", "You are allowed to want certainty and still move without it.", "Your strongest decisions often come from calm.", "Today can be gentle and productive.", "You do not have to keep proving you can handle too much.", "Your life deserves a better rhythm.", "Choose what protects your mornings, your mind, and your money.", "You are capable of building a life you do not need to escape from.", "Your future can feel different because you decide differently today.", "Let yourself trust the progress you cannot yet see.", "You can build confidence through repetition.", "Your peace is worth disappointing people who benefited from your lack of boundaries.", "Choose what gives you more options.", "You are allowed to stop forcing what is not flowing.", "Your growth is making some old things uncomfortable.", "Today is a chance to act from self-respect.", "You do not need to know the entire plan.", "Your life can get easier when you stop complicating what is clear.", "Choose what supports your body and mind.", "You are capable of leaving survival mode.", "Your future can be calm, secure, and expansive.", "Let yourself have a good day without earning it first.", "You can take your goals seriously without making life miserable.", "Your peace deserves maintenance.", "Choose the environment where you can thrive.", "You are allowed to create a new normal.", "Your progress is not erased by one bad day.", "Today is another opportunity to make your life more yours.", "You do not need to accept inconsistency as chemistry.", "Your energy deserves reciprocity.", "Choose the step that creates momentum.", "You are capable of becoming more disciplined without becoming harsh.", "Your future is shaped by what you repeat.", "Let yourself be proud before you are finished.", "You can choose peace even when chaos is available.", "Your life can expand when your standards rise.", "Choose what strengthens your self-trust.", "You are allowed to protect your privacy and your peace.", "Your goals do not need to be explained to everyone.", "Today can be a clean slate.", "You do not need to overthink what your values already answered.", "Your energy becomes stronger when your decisions become cleaner.", "Choose the life you want to wake up to.", "You are capable of building financial peace.", "Your future deserves patience and structure."];
+const SONGS = [["Happy", "Pharrell Williams"], ["Good Life", "OneRepublic"], ["Walking on Sunshine", "Katrina & The Waves"], ["Unwritten", "Natasha Bedingfield"], ["Best Day of My Life", "American Authors"], ["Brave", "Sara Bareilles"], ["Roar", "Katy Perry"], ["Stronger", "Kelly Clarkson"], ["On Top of the World", "Imagine Dragons"], ["Lovely Day", "Bill Withers"], ["Here Comes the Sun", "The Beatles"], ["Can't Stop the Feeling!", "Justin Timberlake"], ["Shake It Off", "Taylor Swift"], ["Firework", "Katy Perry"], ["A Sky Full of Stars", "Coldplay"], ["I Lived", "OneRepublic"], ["Pocketful of Sunshine", "Natasha Bedingfield"], ["Put Your Records On", "Corinne Bailey Rae"], ["Try Everything", "Shakira"], ["I'm Still Standing", "Elton John"], ["Don't Worry Be Happy", "Bobby McFerrin"], ["Dancing Queen", "ABBA"], ["Wake Me Up", "Avicii"], ["Hall of Fame", "The Script"], ["Fight Song", "Rachel Platten"], ["Confident", "Demi Lovato"], ["Beautiful", "Christina Aguilera"], ["Levitating", "Dua Lipa"], ["Flowers", "Miley Cyrus"], ["Sunday Best", "Surfaces"], ["Higher Love", "Kygo & Whitney Houston"], ["Dog Days Are Over", "Florence + The Machine"], ["Adventure of a Lifetime", "Coldplay"], ["Mr. Blue Sky", "Electric Light Orchestra"], ["Ain't No Mountain High Enough", "Marvin Gaye & Tammi Terrell"], ["This Is Me", "The Greatest Showman"], ["Rise Up", "Andra Day"], ["Girl on Fire", "Alicia Keys"], ["The Climb", "Miley Cyrus"], ["Dynamite", "BTS"], ["Permission to Dance", "BTS"], ["Shut Up and Dance", "WALK THE MOON"], ["Good Vibrations", "The Beach Boys"], ["Just Fine", "Mary J. Blige"], ["Golden", "Harry Styles"], ["Rather Be", "Clean Bandit"], ["I Gotta Feeling", "The Black Eyed Peas"], ["Titanium", "David Guetta ft. Sia"], ["Sunroof", "Nicky Youre & dazy"], ["Better When I'm Dancin'", "Meghan Trainor"]];
+
+function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function diffDays(a,b){return Math.round((dateOnly(a)-dateOnly(b))/86400000)}
+function mod(n,m){return ((n%m)+m)%m}
+function formatDate(d){
+  return new Intl.DateTimeFormat("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(d)
+}
+let current=dateOnly(new Date());
+
+function render(){
+  const idx=mod(diffDays(current,START),QUOTES.length);
+  const song=SONGS[idx%SONGS.length];
+  document.getElementById("date").textContent=formatDate(current);
+  document.getElementById("quote").textContent=QUOTES[idx];
+  document.getElementById("songName").textContent=`${song[0]} – ${song[1]}`;
+  document.getElementById("songLink").href=`https://www.youtube.com/results?search_query=${encodeURIComponent(song[0]+" "+song[1]+" official")}`;
+}
+document.getElementById("prev").addEventListener("click",()=>{current.setDate(current.getDate()-1);current=dateOnly(current);render()});
+document.getElementById("next").addEventListener("click",()=>{current.setDate(current.getDate()+1);current=dateOnly(current);render()});
+document.getElementById("today").addEventListener("click",()=>{current=dateOnly(new Date());render()});
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"));}
+render();
+</script>
+</body>
+</html>
