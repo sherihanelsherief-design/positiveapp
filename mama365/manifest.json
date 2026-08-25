@@ -1,0 +1,8 @@
+{
+  "name": "رسالة لماما - 365 يوم",
+  "short_name": "لماما",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf6",
+  "theme_color": "#f4d8d6"
+}
