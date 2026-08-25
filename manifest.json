@@ -1,0 +1,8 @@
+{
+  "name": "Positive Energy",
+  "short_name": "Positive Energy",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff8fb",
+  "theme_color": "#f7ddea"
+}
