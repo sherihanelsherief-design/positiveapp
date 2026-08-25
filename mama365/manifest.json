@@ -2,7 +2,23 @@
   "name": "رسالة لماما - 365 يوم",
   "short_name": "لماما",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#fffaf6",
-  "theme_color": "#f4d8d6"
+  "theme_color": "#f4d8d6",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
