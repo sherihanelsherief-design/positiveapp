@@ -64,8 +64,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;line-
 <div class="divider"></div>
 <div class="from">من بنتك، بكل الحب</div>
 </section>
-<section class="card medicine" aria-label="دواء اليوم"><div class="date-label">دواء اليوم · <span id="medicineDate"></span></div>
-      <label for="medicineCheck"><input type="checkbox" id="medicineCheck" aria-describedby="medicineStatus"><span>أخذت دوائي اليوم</span></label>
+<section class="card medicine" aria-label="المكمّل الغذائي اليوم"><div class="date-label">المكمّل الغذائي اليوم · <span id="medicineDate"></span></div>
+      <label for="medicineCheck"><input type="checkbox" id="medicineCheck" aria-describedby="medicineStatus"><span>أخذت مكمّلي الغذائي اليوم</span></label>
       <p class="medicine-status" id="medicineStatus" role="status"></p>
 </section>
 <section class="controls">
@@ -118,7 +118,7 @@ function renderMedicine() {
   } catch { storageOK = false; }
   medicineCheck.checked = checked;
   medicineStatus.textContent = storageOK
-    ? (checked ? 'تم تسجيل أخذ الدواء اليوم على هذا الجهاز.' : 'علّمي الخانة بعد أخذ دوائك اليوم.')
+    ? (checked ? 'تم تسجيل أخذ المكمّل الغذائي اليوم على هذا الجهاز.' : 'علّمي الخانة بعد أخذ مكمّلك الغذائي اليوم.')
     : 'الحفظ غير متاح في هذا المتصفح؛ قد لا تبقى العلامة بعد إغلاق التطبيق.';
 }
 medicineCheck.addEventListener('change', () => {
