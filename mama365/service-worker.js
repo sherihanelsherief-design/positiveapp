@@ -1,4 +1,4 @@
-const CACHE='mama365-v5-medicine';
+const CACHE='mama365-v6-supplement';
 const ASSETS=['./','./index.html','./manifest.json','./mama-icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)));
