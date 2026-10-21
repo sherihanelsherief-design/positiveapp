@@ -39,6 +39,11 @@ button.primary{background:var(--rose);color:#fff;border-color:var(--rose)}
 .jump input[type=range]{width:100%;accent-color:var(--rose)}
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;line-height:1.7}
 @media(max-width:480px){.app{padding:20px 12px 34px}.card{padding:28px 18px 24px;border-radius:24px}.controls button{flex:1 1 45%}.controls .primary{flex-basis:100%}}
+    .medicine{margin:24px 0 0;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--cream);text-align:right}
+    .medicine label{display:flex;align-items:center;gap:12px;cursor:pointer;min-height:44px;font-size:18px;font-weight:600}
+    .medicine input{width:25px;height:25px;accent-color:var(--rose);flex-shrink:0;cursor:pointer}
+    .medicine input:focus-visible{outline:3px solid var(--rose);outline-offset:4px}
+    .medicine-status{font-size:13px;color:var(--muted);line-height:1.7;margin:6px 37px 0 0}
 </style>
 </head>
 <body>
@@ -58,6 +63,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px;line-
 <p class="message" id="message"></p>
 <div class="divider"></div>
 <div class="from">من بنتك، بكل الحب</div>
+</section>
+<section class="card medicine" aria-label="دواء اليوم"><div class="date-label">دواء اليوم · <span id="medicineDate"></span></div>
+      <label for="medicineCheck"><input type="checkbox" id="medicineCheck" aria-describedby="medicineStatus"><span>أخذت دوائي اليوم</span></label>
+      <p class="medicine-status" id="medicineStatus" role="status"></p>
 </section>
 <section class="controls">
 <button id="prev" type="button">اليوم اللي قبله</button>
@@ -88,7 +97,50 @@ document.getElementById('next').addEventListener('click',()=>{current=clamp(curr
 document.getElementById('today').addEventListener('click',()=>{current=clamp(todayIndex());render()});
 document.getElementById('daySlider').addEventListener('input',e=>{current=clamp(Number(e.target.value)-1);render()});
 if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
+// Each local calendar date has its own checkbox; never carry yesterday forward.
+const medicineCheck = document.getElementById('medicineCheck');
+const medicineStatus = document.getElementById('medicineStatus');
+const medicinePrefix = 'mama365-medicine-';
+let displayedMedicineDate = '';
+let medicineMemory = {};
+let medicineSaveFailed = false;
+function medicineDateKey(date = new Date()) {
+  return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
+}
+function renderMedicine() {
+  displayedMedicineDate = medicineDateKey();
+  document.getElementById('medicineDate').textContent = new Intl.DateTimeFormat('ar-EG',{day:'numeric',month:'long',year:'numeric'}).format(new Date());
+  let checked = medicineMemory[displayedMedicineDate] === true;
+  let storageOK = !medicineSaveFailed;
+  try {
+    const saved = localStorage.getItem(medicinePrefix + displayedMedicineDate);
+    if (saved !== null && !medicineSaveFailed) checked = saved === 'true';
+  } catch { storageOK = false; }
+  medicineCheck.checked = checked;
+  medicineStatus.textContent = storageOK
+    ? (checked ? 'تم تسجيل أخذ الدواء اليوم على هذا الجهاز.' : 'علّمي الخانة بعد أخذ دوائك اليوم.')
+    : 'الحفظ غير متاح في هذا المتصفح؛ قد لا تبقى العلامة بعد إغلاق التطبيق.';
+}
+medicineCheck.addEventListener('change', () => {
+  const today = medicineDateKey();
+  // If midnight passed while the page slept, refresh before accepting a mark.
+  if (displayedMedicineDate !== today) { render(); renderMedicine(); return; }
+  medicineMemory[today] = medicineCheck.checked;
+  try { localStorage.setItem(medicinePrefix + today, String(medicineCheck.checked)); medicineSaveFailed = false; }
+  catch { medicineSaveFailed = true; }
+  renderMedicine();
+});
+function refreshDay() {
+  if (displayedMedicineDate !== medicineDateKey()) { current=clamp(todayIndex()); render(); renderMedicine(); }
+}
 render();
+renderMedicine();
+setInterval(refreshDay, 15000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { render(); renderMedicine(); } });
+window.addEventListener('focus', () => { render(); renderMedicine(); });
+window.addEventListener('storage', event => {
+  if (event.key === null || event.key.startsWith(medicinePrefix)) renderMedicine();
+});
 </script>
 </body>
 </html>
